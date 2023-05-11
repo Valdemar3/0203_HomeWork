@@ -1,42 +1,43 @@
-import { faker } from "@faker-js/faker"
+///<reference types="cypress"/>
+
 import * as userRegistration from "../fixtures/userRegistation.json"
 import * as userAuthoriz from "../fixtures/userAuthoriz.json"
-
-
-userRegistration.email = faker.internet.email('Naomi', 'Kembel', 'gmail.com', {allowSpecialCharacters:false});
-userRegistration.pasw = faker.internet.password(10)
-userRegistration.answer = faker.address.zipCode('####')
-
-//createRandomUser(email,pasw)
+import { fakerRegist, fakerRegistErrorEmail, fakerRegistErrorPasw, fakerRegistErrorAswer } from "../support/fakerRegistr"
+import registration from "../support/pages/registration"
+import authoriztion from "../support/pages/authoriztion"
 
 describe('Test Suite for JuciHiuci', () => {
-  it('Registaration', () => {
-    cy.log('**Open main page**')
-    cy.visit('/')
-    cy.get('button[color="primary"]').click()
-    cy.get('#navbarAccount').click()
-    cy.get('#navbarLoginButton').click()
-    cy.get('div[id="newCustomerLink"] a.primary-link').click()
-    cy.log('**Fill in Registation**')
-    cy.get('#emailControl').type(userRegistration.email)
-    cy.get('#passwordControl').type(userRegistration.pasw)
-    cy.get('#repeatPasswordControl').type(userRegistration.pasw)
-    cy.get('.mat-form-field-type-mat-select > .mat-form-field-wrapper > .mat-form-field-flex').click().then(question => {
-      cy.wrap(question).get('span.mat-option-text:contains("ZIP")').click()
+  describe.skip('Registration suites', () => {
+    it('Registaration True', () => {
+      //start faker function to set random LogIn information
+      fakerRegist(userRegistration)
+      //fillIn all fields and register New User
+      registration.registerNewUser(userRegistration)
     })
-    cy.get('[data-placeholder="Answer to your security question"]').type(userRegistration.answer)
-    cy.get('#registerButton').click()
-    console.log(userRegistration.email,`--`, userRegistration.pasw)
+    it('Registration with error Email',() =>{
+      //start faker function to set random LogIn information
+      fakerRegistErrorEmail(userRegistration)
+      //fillIn all fields and register New User
+      registration.registerNewUser(userRegistration)
+    })
+    it('Registration with error Pasw',() =>{
+      //start faker function to set random LogIn information
+      fakerRegistErrorPasw(userRegistration)
+      //fillIn all fields and register New User
+      registration.registerNewUser(userRegistration)
+    })
+    it('Registration with error Answ',() =>{
+      //start faker function to set random LogIn information
+      fakerRegistErrorAswer(userRegistration)
+      //fillIn all fields and register New User
+      registration.registerNewUser(userRegistration)
+    })
   })
 
   it('Authorization', () => {
-    cy.log('**Open LogIn Page**')
-    cy.visit('/')
-    cy.get('button[color="primary"]').click()
-    cy.get('#navbarAccount').click()
-    cy.get('#navbarLoginButton').click()
-    cy.get('#email').type(userAuthoriz.email)
-    cy.get('#password').type(userAuthoriz.pasw)
-    cy.get('#loginButton').click()
+    
+    //start authorization and verivy
+    authoriztion.authorizationUser(userAuthoriz)
+
   })
 })
