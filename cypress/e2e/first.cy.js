@@ -39,5 +39,14 @@ describe('Test Suite for JuciHiuci', () => {
     //start authorization and verivy
     authoriztion.authorizationUser(userAuthoriz)
 
+    //search good just for FUN
+    // cy.get('#searchQuery').then(search => {
+    //   cy.wrap(search).dblclick({force:true}).get('input[type="text"]').type('e{enter}', {force: true})
+    // })
+    
+    //search good on the page withour using searh field
+    //cy.visit('/')
+    
+
   })
 })
