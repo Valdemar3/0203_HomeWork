@@ -1,10 +1,20 @@
 ///<reference types="cypress"/>
 
+//fixtures:
 import * as userRegistration from "../fixtures/userRegistation.json"
 import * as userAuthoriz from "../fixtures/userAuthoriz.json"
+import * as nameOfGood from "../fixtures/nameOfGood.json"
+import * as shipAddress from "../fixtures/shipAddress.json"
+import * as billingInf from "../fixtures/billingInf.json"
+//support:
 import { fakerRegist, fakerRegistErrorEmail, fakerRegistErrorPasw, fakerRegistErrorAswer } from "../support/fakerRegistr"
+import { fakerAddress } from "../support/fakerAdress"
+import {fakerBilling} from "../support/fakerBilling"
+import { searchGood } from "../support/searchGood"
+//pages:
 import registration from "../support/pages/registration"
 import authoriztion from "../support/pages/authoriztion"
+import bookGood from "../support/pages/bookGood"
 
 describe('Test Suite for JuciHiuci', () => {
   describe.skip('Registration suites', () => {
@@ -39,14 +49,16 @@ describe('Test Suite for JuciHiuci', () => {
     //start authorization and verivy
     authoriztion.authorizationUser(userAuthoriz)
 
-    //search good just for FUN
-    // cy.get('#searchQuery').then(search => {
-    //   cy.wrap(search).dblclick({force:true}).get('input[type="text"]').type('e{enter}', {force: true})
-    // })
-    
-    //search good on the page withour using searh field
-    //cy.visit('/')
-    
+    //search good on the web site
+    searchGood(nameOfGood)
+    //create fake Data for shipping
+    fakerAddress(shipAddress)
+    //create fake Data for Billing
+    fakerBilling(billingInf)
+    //book this good
+    bookGood.fillInShippingData(shipAddress, billingInf)
 
+    
+    
   })
 })
