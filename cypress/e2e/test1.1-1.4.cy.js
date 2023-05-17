@@ -57,8 +57,6 @@ describe('Test Suite for JuciHiuci', () => {
     fakerBilling(billingInf)
     //book this good
     bookGood.fillInShippingData(shipAddress, billingInf)
-
-    
     
   })
 })
