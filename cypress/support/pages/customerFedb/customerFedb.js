@@ -19,7 +19,9 @@ class customerFedb {
         return cy.get('mat-slider[aria-valuenow]')
     }
     getCaptcha() {
-        return cy.get('#captcha')
+        return cy.get('#feedback-form')
+        //#feedback-form
+        //#captcha
     }
     writeCaptcha() {
         return cy.get('#captchaControl')
@@ -43,19 +45,18 @@ class customerFedb {
         //this.giveRating().as('aria-valuenow').invoke('val', 3).trigger('change', {force: true})
         this.giveRating().invoke('attr', 'aria-valuenow', '3')
         .trigger('change', {force:true}).click({force:true})
-        cy.log('**КResolve captcha**')
-        let resOut=77;
+        cy.log('**Resolve captcha**')
+        //let resOut;
         this.getCaptcha().then( valueCaptcha => {
-            //expect(valueCaptcha).to.have.property('textContent')
-            let resIn, resOut;
-            resIn = valueCaptcha.prop('textContent')
-            resOut = eval(resIn)
-            //resOut = string(resOut)
-            console.log(typeof(resOut))
-            console.log(resOut)
+            let result = cy.get('#captcha').then($resIn => {
+                result = $resIn.text()
+                result = eval(result)
+                result = Number(result)
+                cy.log('**Input captcha`a answer to field**')
+                this.writeCaptcha().type(result, {force:true})
+            })
+
         })
-        cy.log('**Input captcha`a aswer to field**')
-        this.writeCaptcha().type(valueCaptcha, {force:true})
         cy.log('**Press Submit button**')
         this.getSubmitButton().click({force:true})
 

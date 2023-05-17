@@ -16,8 +16,8 @@ import registration from "../support/pages/registration"
 import authoriztion from "../support/pages/authoriztion"
 import bookGood from "../support/pages/bookGood"
 
-describe('Test Suite for JuciHiuci', () => {
-  describe.skip('Registration suites', () => {
+describe.skip('Test Suite for JuciHiuci', () => {
+  describe('Registration suites', () => {
     it('Registaration True', () => {
       //start faker function to set random LogIn information
       fakerRegist(userRegistration)
@@ -44,7 +44,7 @@ describe('Test Suite for JuciHiuci', () => {
     })
   })
 
-  it('Authorization', () => {
+  it('Registartion', () => {
     
     //start authorization and verivy
     authoriztion.authorizationUser(userAuthoriz)
